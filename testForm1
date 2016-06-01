@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+
+<title>Budget calculator</title>
+<style type="text/css">
+a.info {
+  position:relative; /*this is the key*/
+  z-index:24;
+  text-decoration:underline;
+  cursor:help;
+}
+a.info:hover {
+  z-index:25;
+ background:;/* this has to be there for IE6*/
+}
+a.info span {
+  display: none
+}
+a.info:hover span { /*the span will display just on :hover state*/
+  display:block;
+  position:absolute;
+  top:2em;
+  left:2em;
+  width:15em;
+  border:1px solid #003366;
+  background-color:#FFFFCC;
+  color:#000;
+  text-align: left;
+  text-decoration:none;
+  font-family: sans-serif;
+  font-size: 11px;
+  padding: 2px 2px 2px 2px;
+}
+a.info:focus, a.info:active {
+  display:block;
+}
+</style>
+<!-- calculator script -->
+<script language="JavaScript1.1" type="text/javascript">
+  
+  // Function is used to evaluate and calculate the budget calculator fields
+  function updCalc(input)
+  {
+    var nttlspent = 0
+    if (input.form.mtotal.value != null && input.form.mtotal.value.length != 0)
+    {
+            nmttl = Math.round(input.form.mtotal.value)
+            nless = Math.round(nmttl * .28);
+            nspendable = Math.round(nmttl - nless);
+            input.form.less.value = Math.round(nless);
+            input.form.mspendable.value = Math.round(nspendable);
+            input.form.mspendable2.value = Math.round(nspendable);
+    }               
+    if (input.form.rent.value != null && input.form.rent.value.length != 0)
+    {
+            nttlspent += eval(input.form.rent.value);
+    }
+    if (input.form.food.value != null && input.form.food.value.length != 0) {
+            nttlspent += eval(input.form.food.value);
+    }
+    if (input.form.util.value != null && input.form.util.value.length != 0) {
+            nttlspent += eval(input.form.util.value); }
+    if (input.form.med.value != null && input.form.med.value.length != 0) {
+            nttlspent += eval(input.form.med.value); }
+    if (input.form.savings.value != null && input.form.savings.value.length != 0) {
+            nttlspent += eval(input.form.savings.value); }
+    if (input.form.loans.value != null && input.form.loans.value.length != 0) {
+            nttlspent += eval(input.form.loans.value); }
+    if (input.form.clothing.value != null && input.form.clothing.value.length != 0) {
+            nttlspent += eval(input.form.clothing.value); }
+    if (input.form.misc.value != null && input.form.misc.value.length != 0) {
+            nttlspent += eval(input.form.misc.value); }
+    if (input.form.trans.value != null && input.form.trans.value.length != 0) {
+            nttlspent += eval(input.form.trans.value); }
+    if (input.form.other.value != null && input.form.other.value.length != 0) {
+            nttlspent += eval(input.form.other.value); }
+    if (input.form.childCare.value != null && input.form.childCare.value.length != 0) {
+            nttlspent += eval(input.form.childCare.value); }
+    if (input.form.ent.value != null && input.form.ent.value.length != 0) {
+            nttlspent += eval(input.form.ent.value); }
+  
+    input.form.ttlspent.value= Math.round(nttlspent);
+    input.form.ttlspent2.value= Math.round(nttlspent);
+    input.form.ttlyear.value= Math.round(nttlspent*12);
+    input.form.ttlmavail.value= Math.round((nspendable-nttlspent));
+    input.form.ttlyravail.value= Math.round((nspendable-nttlspent)*12);                   
+    return true;
+  }
+  
+  // Function clears the budget calculator when reset is requested
+  function clearForm(input,from,to)
+  {
+    input.form.mtotal.value="";
+    input.form.less.value="";
+    input.form.mspendable.value="";
+    input.form.rent.value="";
+    input.form.food.value="";
+    input.form.util.value="";
+    input.form.savings.value="";
+    input.form.med.value="";
+    input.form.clothing.value="";
+    input.form.loans.value="";
+    input.form.other.value="";
+    input.form.misc.value="";
+    input.form.ent.value="";
+    input.form.childCare.value="";
+    input.form.trans.value="";
+    input.form.ttlspent.value="";
+    input.form.ttlyear.value="";
+    input.form.mspendable2.value="";
+    input.form.ttlmavail.value="";
+    input.form.ttlspent2.value="";
+    input.form.ttlyravail.value="";
+    return true;
+  }
+  // Function determines and verifies the required fields are met to complete the budget calculator
+  function verify() {
+    var themessage = "You are required to complete the following field(s) before proceeding: \n";
+    if (document.form.mtotal.value=="") {
+    themessage = themessage + "   Monthly Gross Earnings \n" ;
+    }
+    if (document.form.rent.value==""
+        && document.form.food.value==""
+        && document.form.util.value==""
+        && document.form.savings.value==""
+        && document.form.med.value==""
+        && document.form.clothing.value==""
+        && document.form.loans.value==""
+        && document.form.other.value==""
+        && document.form.misc.value==""
+        && document.form.ent.value==""
+        && document.form.childCare.value==""
+        && document.form.trans.value=="")
+    {
+    themessage = themessage + "   Expenses \n";
+    }
+  
+    // If all fields are met, enable the Submit button to proceed to the next step
+    if (themessage == "You are required to complete the following field(s) before proceeding: \n") {
+    enableSubmitButton(document.GoNext.GoNextButton); 
+    return false;
+    }
+    else {
+    alert(themessage);
+    
+    return false;
+       }
+    }
+  
+  function cancelAction (evt) {
+    return false;
+    }
+  // Function to call to disable the Submit Button
+  function disableSubmitButton (button) {
+    if (typeof button.disabled != "")
+      button.disabled = true;
+    else if (!button.buttonDisabled) {
+      button.oldValue = button.value;
+      button.oldOnclick = button.onclick;
+      button.value = 'DISABLED';
+      button.onclick = cancelAction;
+      button.buttonDisabled = true;
+      }
+    }
+    
+  // Function to call to enable the Submit Button to focu
+  function enableSubmitButton (button) {
+    if (typeof button.disabled != "")
+      button.disabled = false;
+    else if (button.buttonDisabled) {
+      button.value = button.oldValue;
+      button.onclick = button.oldOnclick;
+      button.buttonDisabled = false;
+    }
+  }
+  
+  // Especially designed to work with NS4 and up; Since disabling the submit,
+  // this requires the user to fill the budget plan.
+  // button is not possible for this version of NS, this requires the user to fill the 
+  var checkobj;
+  function defaultagree1(el){
+    checkobj=el
+    if (!document.all&&!document.getElementById)
+      {
+      if (document.form.mtotal.value!=""
+        && (document.form.rent.value!=""
+        || document.form.food.value!=""
+        || document.form.util.value!=""
+        || document.form.savings.value!=""
+        || document.form.med.value!=""
+        || document.form.clothing.value!=""
+        || document.form.loans.value!=""
+        || document.form.other.value!=""
+        || document.form.misc.value!=""
+        || document.form.ent.value!=""
+        || document.form.childCare.value!=""
+        || document.form.trans.value!="")
+        )
+        return true
+      else
+      {
+        alert("Please complete the budget calculator before proceeding")
+        return false
+          }
+      }
+    }
+
+</script>
+<link rel="stylesheet" href="/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/styleprint.css" type="text/css" media="print"/>
+ 
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script src="/js/jquery1.11.1min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-32111144-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+ 
+<body>
+
+<div id="page-title">
+<h1>Budget calculator</h1>
+
+</div>
+
+<div id="container">
+  
+
+  <article>
+<p>Ready  to start budgeting?  Use this calculator to create your personalized spending plan. </p>
+<ul>
+  <li>Enter whole dollar amounts (no cents).</li>
+  <li>Do not use commas in values of $1000 or more.</li>
+</ul>
+<form name="form" id="form">
+  <table class="ltBlue" align="center" cellspacing="0" cellpadding="2" width="576" border="0">
+    <tbody>
+      <tr>
+        <th align="middle" class="dkBlue"colspan="4"><b>Income</b> </th>
+      </tr>
+      <br>If you do not have income, enter the amount you have saved up.
+      <tr>
+        <td align="right">Monthly Gross Earnings </td>
+        <td><input maxlength="10" onchange="updCalc(this);" size="7" name="mtotal" /></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td align="right">Subtract 28% for average withholdings </td>
+        <td><input maxlength="10" size="7" name="less" readonly /></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td align="right"><b>Monthly net income</b></td>
+        <td><input maxlength="10" size="7" name="mspendable" readonly  /></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <th align="middle" class="dkBlue" colspan="4"><b>Expenses</b> </th>
+      </tr>
+      <tr>
+        <td align="right">Housing</td>
+        <td><input onchange="updCalc(this)" size="7" name="rent" /></td>
+        <td align="right"><a class="info" href="#">Grocery Items <span><strong style="color:#003366">Grocery Items</strong><br />
+          Includes food, toothpaste, shampoo, household supplies</span></a></td>
+        <td><input onchange="updCalc(this)" size="7" name="food" /></td>
+      </tr>
+      <tr>
+        <td align="right"><a class="info" href="#">Utilities <span><strong style="color:#003366">Utilities </strong><br />
+          Includes gas, water, electric, phone, cable, internet, etc.</span></a></td>
+        <td><input onchange="updCalc(this)" size="7" name="util" /></td>
+        <td align="right">Savings </td>
+        <td><input onchange="updCalc(this)" size="7" name="savings" /></td>
+      </tr>
+      <tr>
+        <td align="right">Medical Insurance </td>
+        <td><input onchange="updCalc(this)" size="7" name="med" /></td>
+        <td align="right">Clothing </td>
+        <td><input onchange="updCalc(this)" size="7" name="clothing" /></td>
+      </tr>
+      <tr>
+        <td align="right">Student Loans </td>
+        <td><input onchange="updCalc(this)" size="7" name="loans" /></td>
+        <td align="right"><a class="info" href="#">Other Credit <span><strong style="color:#003366">Other Credit </strong><br />
+          Includes credit cards, other loans</span></a></td>
+        <td><input onchange="updCalc(this)" size="7" name="other" /></td>
+      </tr>
+      <tr>
+        <td align="right"><a class="info" href="#">Misc. Expenses <span><strong style="color:#003366">Misc. Expenses</strong><br />
+          Includes child care, medical bills, prescriptions, haircuts, dry cleaning</span></a></td>
+        <td><input onchange="updCalc(this)" size="7" name="misc" /></td>
+        <td align="right">Entertainment </td>
+        <td><input onchange="updCalc(this)" size="7" name="ent" /></td>
+      </tr>
+      <tr>
+        <td align="right"><a class="info" href="#">Transportation Expenses<span><strong style="color:#003366">Transportation Expenses</strong><br />
+          Includes car payment, gas, repairs, license, insurance, bus or taxi fare</span></a></td>
+        <td><input onchange="updCalc(this)" size="7" name="trans" /></td>
+        <td align="right">Child Care </td>
+        <td><input onchange="updCalc(this)" size="7" name="childCare" /></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td align="right"><b>Monthly expenses</b></td>
+        <td><input size="7" name="ttlspent" readonly /></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td align="right"><b>Annual expenses</b></td>
+        <td><input size="7" name="ttlyear" readonly /></td>
+      </tr>
+      <tr>
+        <th align="middle" class="dkBlue" colspan="4"><b>Results</b> </th>
+      </tr>
+      <tr>
+        <td align="right">Monthly net income </td>
+        <td><input size="7" name="mspendable2" readonly /></td>
+        <td align="right"><b>Monthly discretionary income</b></td>
+        <td><input size="7" name="ttlmavail" readonly /></td>
+      </tr>
+      <tr>
+        <td align="right">Subtract monthly expenses </td>
+        <td><input size="7" name="ttlspent2" readonly /></td>
+        <td align="right"><b>Annual discretionary income</b></td>
+        <td><input size="7" name="ttlyravail" readonly /></td>
+      </tr>
+      <tr>
+        <td><script language="JavaScript1.1" type="text/javascript">
+function printWindow(){
+   brVer = parseInt(navigator.appVersion)
+   if (brVer >= 4) window.print()
+}
+</script> 
+     </td>
+        <td colspan="3" align="right"><input class="coloredButtons" onclick="clearForm(this,20,23)" type="button" value="Reset" />
+          <input class="coloredButtons" onclick="updCalc(this)" type="button" value="Calculate Total" name="Calculate" /></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+  </article>
+
+  <aside> 
+Links Here
+</aside>
+
+
+</body>
+</html>
