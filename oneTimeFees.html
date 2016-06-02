@@ -1,4 +1,52 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+    <title>One Time Fees</title>
+<body bgcolor="DarkSeaGreen">
+  <style>
+    h1{background-color: LimeGreen;}
+    h1{font-family: Impact;}
+  </style>
+  <center>
+  <img src = "images/FinanceStartup.jpg">
+  </center>
+  <h1>Budget Calculator</h1>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<style type="text/css">
+a.info {
+  position:relative; /*this is the key*/
+  z-index:24;
+  text-decoration:underline;
+  cursor:help;
+}
+a.info:hover {
+  z-index:25;
+ background:;/* this has to be there for IE6*/
+}
+a.info span {
+  display: none
+}
+a.info:hover span { /*the span will display just on :hover state*/
+  display:block;
+  position:absolute;
+  top:2em;
+  left:2em;
+  width:15em;
+  border:1px solid #003366;
+  background-color:#FFFFCC;
+  color:#000;
+  text-align: left;
+  text-decoration:none;
+  font-family: sans-serif;
+  font-size: 11px;
+  padding: 2px 2px 2px 2px;
+}
+a.info:focus, a.info:active {
+  display:block;
+}
+</style>
 <!-- calculator script -->
 <script language="JavaScript1.1" type="text/javascript">
   
@@ -9,9 +57,9 @@
     if (input.form.mtotal.value != null && input.form.mtotal.value.length != 0)
     {
             nmttl = Math.round(input.form.mtotal.value)
-            nmearn = Math.round(input.form.mearn.value);
-            nspendable = Math.round(nmttl + nmearn);
-            input.form.mearn.value = Math.round(nmearn);
+            nmemer = Math.round(input.form.memer.value);
+            nspendable = Math.round(nmttl - nmemer);
+            input.form.memer.value = Math.round(nmemer);
             input.form.mspendable.value = Math.round(nspendable);
             input.form.mspendable2.value = Math.round(nspendable);
     }               
@@ -45,9 +93,7 @@
   
     input.form.ttlspent.value= Math.round(nttlspent);
     input.form.ttlspent2.value= Math.round(nttlspent);
-    input.form.ttlyear.value= Math.round(nttlspent*12);
-    input.form.ttlmavail.value= Math.round((nspendable-nttlspent));
-    input.form.ttlyravail.value= Math.round((nspendable-nttlspent)*12);                   
+    input.form.ttlmavail.value= Math.round((nspendable-nttlspent));                  
     return true;
   }
   
@@ -55,7 +101,7 @@
   function clearForm(input,from,to)
   {
     input.form.mtotal.value="";
-    input.form.mearn.value="";
+    input.form.memer.value="";
     input.form.mspendable.value="";
     input.form.rent.value="";
     input.form.supp.value="";
@@ -225,17 +271,17 @@
         <td colspan="2"></td>
       </tr>
       <tr>
-        <td align="right">Projected monthly earnings</td>
-        <td><input maxlength="10" onchange="updCalc(this);" size="7" name="mearn"  /></td>
+        <td align="right">Emergency Money</td>
+        <td><input maxlength="10" onchange="updCalc(this);" size="7" name="memer"  /></td>
         <td colspan="2"></td>
       </tr>
       <tr>
-        <td align="right"><b>Monthly net income</b></td>
+        <td align="right"><b>Available Starting Money</b></td>
         <td><input maxlength="10" onchange="updCalc(this);" size="7" name="mspendable" readonly  /></td>
         <td colspan="2"></td>
       </tr>
       <tr>
-        <th align="middle" class="dkBlue" colspan="4"><b>Monthly Expenses</b> </th>
+        <th align="middle" class="dkBlue" colspan="4"><b>Starting/One-Time Expenses</b> </th>
       </tr>
       <tr>
         <td align="right">Rent/Lease Payments
@@ -281,28 +327,25 @@
       </tr>
       <tr>
         <td colspan="2"></td>
-        <td align="right"><b>Monthly expenses</b></td>
+        <td align="right"><b>Starting Expenses</b></td>
         <td><input size="7" name="ttlspent" readonly /></td>
       </tr>
       <tr>
         <td colspan="2"></td>
-        <td align="right"><b>Annual expenses</b></td>
-        <td><input size="7" name="ttlyear" readonly /></td>
       </tr>
       <tr>
         <th align="middle" class="dkBlue" colspan="4"><b>Results</b> </th>
       </tr>
       <tr>
-        <td align="right">Monthly net income </td>
+        <td align="right">Startup Money</td>
         <td><input size="7" name="mspendable2" readonly /></td>
-        <td align="right"><b>Monthly discretionary income</b></td>
+        <td align="right"><b>Starting Discretionary Money</b></td>
         <td><input size="7" name="ttlmavail" readonly /></td>
       </tr>
       <tr>
-        <td align="right">Subtract monthly expenses </td>
+        <td align="right">Subtract one time expenses </td>
         <td><input size="7" name="ttlspent2" readonly /></td>
-        <td align="right"><b>Annual discretionary income</b></td>
-        <td><input size="7" name="ttlyravail" readonly /></td>
+
       </tr>
       <tr>
         <td><script language="JavaScript1.1" type="text/javascript">
