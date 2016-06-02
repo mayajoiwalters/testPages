@@ -240,7 +240,7 @@ a.info:focus, a.info:active {
 </div>
 
 <div id="container">
-  
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
   <article>
 <p>Ready  to start budgeting?  Use this calculator to create your personalized spending plan. </p>
@@ -255,6 +255,11 @@ a.info:focus, a.info:active {
         <th align="middle" class="dkBlue"colspan="4"><b>Income</b> </th>
       </tr>
       <br>If you do not have income, enter the amount you have saved up.
+      <div ng-app="">
+      <p>Enter the startup name in the box:</p>
+<p>Name : <input type="text" ng-model="compname" placeholder="Enter name here"></p>
+<h1>Company: {{compname}}</h1>
+</div>
       <tr>
         <td align="right">Monthly Gross Earnings </td>
         <td><input maxlength="10" onchange="updCalc(this);" size="7" name="mtotal" /></td>
