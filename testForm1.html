@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
+<body bgcolor="Peru">
 
 <title>Budget calculator</title>
 <style type="text/css">
@@ -50,9 +50,9 @@ a.info:focus, a.info:active {
     if (input.form.mtotal.value != null && input.form.mtotal.value.length != 0)
     {
             nmttl = Math.round(input.form.mtotal.value)
-            nless = Math.round(nmttl * .28);
-            nspendable = Math.round(nmttl - nless);
-            input.form.less.value = Math.round(nless);
+            nmearn = Math.round(input.form.mearn.value);
+            nspendable = Math.round(nmttl + nmearn);
+            input.form.mearn.value = Math.round(nmearn);
             input.form.mspendable.value = Math.round(nspendable);
             input.form.mspendable2.value = Math.round(nspendable);
     }               
@@ -96,7 +96,7 @@ a.info:focus, a.info:active {
   function clearForm(input,from,to)
   {
     input.form.mtotal.value="";
-    input.form.less.value="";
+    input.form.mearn.value="";
     input.form.mspendable.value="";
     input.form.rent.value="";
     input.form.food.value="";
@@ -254,25 +254,22 @@ a.info:focus, a.info:active {
       <tr>
         <th align="middle" class="dkBlue"colspan="4"><b>Income</b> </th>
       </tr>
-      <br>If you do not have income, enter the amount you have saved up.
-      <div ng-app="">
-      <p>Enter the startup name in the box:</p>
-<p>Name : <input type="text" ng-model="compname" placeholder="Enter name here"></p>
-<h1>Company: {{compname}}</h1>
-</div>
+
+      Enter the amount of money <u>per month</u> you have saved up. Also in <b>personal expenses</b>, enter what you have set aside for personal use per month.
+      
       <tr>
-        <td align="right">Monthly Gross Earnings </td>
+        <td align="right">Amount saved for monthly</td>
         <td><input maxlength="10" onchange="updCalc(this);" size="7" name="mtotal" /></td>
         <td colspan="2"></td>
       </tr>
       <tr>
-        <td align="right">Subtract 28% for average withholdings </td>
-        <td><input maxlength="10" size="7" name="less" readonly /></td>
+        <td align="right">Projected monthly earnings</td>
+        <td><input maxlength="10" onchange="updCalc(this):" size="7" name="mearn"  /></td>
         <td colspan="2"></td>
       </tr>
       <tr>
         <td align="right"><b>Monthly net income</b></td>
-        <td><input maxlength="10" size="7" name="mspendable" readonly  /></td>
+        <td><input maxlength="10" onchange="updCalc(this);" size="7" name="mspendable" readonly  /></td>
         <td colspan="2"></td>
       </tr>
       <tr>
